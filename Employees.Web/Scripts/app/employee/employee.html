@@ -1,0 +1,18 @@
+﻿<h1>Employee</h1>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form role="form">
+            <div class="form-group">
+                <label for="nameInput">Name</label>
+                <input type="text" class="form-control" id="nameInput" placeholder="Enter name" data-ng-model="employee.Name" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="emailInput">Email</label>
+                <input type="text" class="form-control" id="emailInput" placeholder="Enter email" data-ng-model="employee.Email">
+            </div>
+            <button class="btn btn-danger" data-ng-click="onCancel()">Cancel</button>
+            <button class="btn btn-success" data-ng-click="onSave()">Save</button>
+        </form>
+    </div>
+</div>

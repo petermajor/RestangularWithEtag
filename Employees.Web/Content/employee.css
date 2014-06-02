@@ -1,0 +1,17 @@
+﻿body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+}
+
+.panel-employee:hover {
+    border: solid 1px #CCC;
+    -moz-box-shadow: 5px 5px 0 #999;
+    -webkit-box-shadow: 5px 5px 0 #999;
+    box-shadow: 5px 5px 0 #999;
+}
+
+.panel-employee h3 {
+    color: #262626;
+    margin-top: 0;
+    margin-bottom: 0;
+}
