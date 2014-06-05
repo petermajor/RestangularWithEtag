@@ -4,7 +4,6 @@
     using System.Linq;
     using System.Net;
     using System.Net.Http;
-    using System.Security.Cryptography;
     using System.Web.Http;
     using System.Web.Http.Routing;
 
@@ -12,16 +11,19 @@
     using Employees.Web.Repositories;
     using Employees.Web.Results;
 
-    using Newtonsoft.Json;
-
     [RoutePrefix("api/employees")]
     public class EmployeeController : ApiController
     {
-        private readonly EmployeeRepository repository;
+        private readonly IEmployeeRepository repository;
 
         public EmployeeController()
+            : this(new EmployeeRepository())
         {
-            repository = new EmployeeRepository();
+        }
+
+        public EmployeeController(IEmployeeRepository repository)
+        {
+            this.repository = repository;
         }
 
         [Route("")]
@@ -41,7 +43,7 @@
                 return NotFound();
             }
 
-            return OkWithETag(employee, GenerateETag(employee));
+            return OkWithETag(employee);
         }
 
         [HttpPost]
@@ -50,7 +52,7 @@
         {
             repository.Create(employee);
 
-            return CreatedAtRouteWithETag("GetById", new { id = employee.Id }, employee, GenerateETag(employee));
+            return CreatedAtRouteWithETag("GetById", new { id = employee.Id }, employee);
         }
 
         [HttpPut]
@@ -59,7 +61,7 @@
         {
             if (!string.Equals(employee.Id, id, StringComparison.Ordinal))
             {
-                return BadRequest("Transaction Id in resource and URL must match.");
+                return BadRequest("Employee Id in resource and URL must match.");
             }
 
             var existingEmployee = repository.GetById(id);
@@ -69,7 +71,7 @@
             }
 
             var etag = GetETagFromRequest(Request);
-            var existingETag = GenerateETag(existingEmployee);
+            var existingETag = existingEmployee.GenerateETag();
             if (!string.Equals(existingETag, etag, StringComparison.Ordinal))
             {
                 return StatusCode(HttpStatusCode.PreconditionFailed);
@@ -77,7 +79,7 @@
 
             repository.Update(employee);
 
-            return OkWithETag(employee, GenerateETag(employee));
+            return OkWithETag(employee);
         }
 
         public string GetETagFromRequest(HttpRequestMessage request)
@@ -97,27 +99,14 @@
             return ifMatchHeader.Tag;
         }
 
-        private static string GenerateETag(Employee obj)
+        private IHttpActionResult CreatedAtRouteWithETag<T>(string routeName, object routeValues, T content)
         {
-            var objJson = JsonConvert.SerializeObject(obj);
-            var objJsonBytes = System.Text.Encoding.ASCII.GetBytes(objJson);
-
-            var hashProvider = new MD5CryptoServiceProvider();
-            var hash = hashProvider.ComputeHash(objJsonBytes);
-
-            var etagString = BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
-
-            return string.Format("\"{0}\"", etagString);
+            return new CreatedAtRouteNegotiatedContentResultWithETag<T>(routeName, new HttpRouteValueDictionary(routeValues), content, content.GenerateETag(), this);
         }
 
-        private IHttpActionResult CreatedAtRouteWithETag<T>(string routeName, object routeValues, T content, string etag)
+        private IHttpActionResult OkWithETag<T>(T content)
         {
-            return new CreatedAtRouteNegotiatedContentResultWithETag<T>(routeName, new HttpRouteValueDictionary(routeValues), content, etag, this);
-        }
-
-        private IHttpActionResult OkWithETag<T>(T content, string etag)
-        {
-            return new OkNegotiatedContentWithETagResult<T>(content, etag, this);
+            return new OkNegotiatedContentWithETagResult<T>(content, content.GenerateETag(), this);
         }
     }
 }

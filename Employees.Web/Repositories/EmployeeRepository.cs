@@ -5,7 +5,7 @@ namespace Employees.Web.Repositories
 
     using Employees.Web.Models;
 
-    public class EmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private static readonly Dictionary<string, Employee> Employees;
 

@@ -30,6 +30,7 @@ angular.module('app.employee', [])
 
             $scope.saveSuccess = function(updatedEmployed) {
                 $scope.employee = updatedEmployed;
+                $scope.lastSave = new Date();
 
                 if (!$location.search.id) {
                     var search = $location.search();

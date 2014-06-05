@@ -120,6 +120,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Models\ETagExtensions.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -128,6 +129,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Results\CreatedAtRouteNegotiatedContentResultWithETag.cs" />
     <Compile Include="Results\OkNegotiatedContentWithETagResult.cs" />
   </ItemGroup>

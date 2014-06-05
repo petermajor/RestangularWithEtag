@@ -14,5 +14,6 @@
             <button class="btn btn-danger" data-ng-click="onCancel()">Cancel</button>
             <button class="btn btn-success" data-ng-click="onSave()">Save</button>
         </form>
+        <p data-ng-if="lastSave">Last Save: {{lastSave | date:'medium'}}</p>
     </div>
 </div>
