@@ -9,8 +9,8 @@ angular.module('app.employee', [])
             };
         }])
 
-    .controller('EmployeeController', ['$scope', '$location', 'employee',
-        function ($scope, $location, employee) {
+    .controller('EmployeeController', ['$scope', '$location', '$modal', 'employee',
+        function ($scope, $location, $modal, employee) {
             $scope.employee = employee;
 
             $scope.onSave = function () {
@@ -40,8 +40,19 @@ angular.module('app.employee', [])
             }
 
             $scope.saveFailure = function (reason) {
-                alert("failure - status: " + reason.status);
+                if (reason.status === 412) {
+                    $scope.showConcurrencyError();
+                } else {
+                    alert("failure - status: " + reason.status);
+                };
             }
+
+            $scope.showConcurrencyError = function() {
+                $modal.open({
+                    templateUrl: '/scripts/app/employee/concurrency.html',
+                    size: 'sm'
+                });
+            };
 
             $scope.onCancel = function() {
                 $location.url('/employees');

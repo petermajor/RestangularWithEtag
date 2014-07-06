@@ -11,8 +11,8 @@
                 <label for="emailInput">Email</label>
                 <input type="text" class="form-control" id="emailInput" placeholder="Enter email" data-ng-model="employee.Email">
             </div>
-            <button class="btn btn-danger" data-ng-click="onCancel()">Cancel</button>
-            <button class="btn btn-success" data-ng-click="onSave()">Save</button>
+            <button id="cancel" class="btn btn-danger" data-ng-click="onCancel()">Cancel</button>
+            <button id="save" class="btn btn-success" data-ng-click="onSave()">Save</button>
         </form>
         <p data-ng-if="lastSave">Last Save: {{lastSave | date:'medium'}}</p>
     </div>

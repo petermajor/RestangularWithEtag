@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'restangular', 'app.employee'])
+angular.module('app', ['ngRoute', 'restangular', 'ui.bootstrap', 'app.employee'])
 
     .constant('ApiBaseUrl', '/api')
 
