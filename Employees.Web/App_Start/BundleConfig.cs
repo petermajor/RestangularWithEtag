@@ -22,6 +22,7 @@
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                       "~/Scripts/angular.js",
+                      "~/Scripts/angular-mocks.js",
                       "~/Scripts/angular-route.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/uibootstrap").Include(
@@ -39,10 +40,6 @@
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/employee.css"));
-
-#if !DEBUG
-            BundleTable.EnableOptimizations = true;
-#endif
         }
     }
 }

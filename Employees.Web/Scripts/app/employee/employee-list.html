@@ -1,10 +1,10 @@
 ﻿<h1>Employees</h1>
 
-<div class="panel panel-default panel-employee" data-ng-repeat="employee in employees | orderBy:'Name':true">
+<div class="panel panel-default panel-employee" data-ng-repeat="employee in employees | orderBy:'Name'">
     <div class="panel-body">
         <h3><a ng-href="/employee?id={{employee.Id}}">{{employee.Name}}</a></h3>
         <div>{{employee.Email}}</div>
     </div>
 </div>
 
-<button class="btn btn-default" data-ng-click="onAdd()">Add</button>
+<button class="btn btn-default" id="btn-add" data-ng-click="onAdd()">Add</button>
