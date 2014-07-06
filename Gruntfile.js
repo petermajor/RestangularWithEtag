@@ -3,7 +3,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
       protractor: {
           options: {
-              debug: true,
+              //debug: true,
               keepAlive: true
           },
           testTarget: {
