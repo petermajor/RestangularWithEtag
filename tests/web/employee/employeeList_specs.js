@@ -20,9 +20,10 @@ describe("On the 'employee list' page", function () {
 
         employeeListPage.expectEmployeeNameAt(0, "Donald Trump");
         employeeListPage.expectEmployeeEmailAt(0, "rich@gmail.com");
+        employeeListPage.expectEmployeeDetailsUrl(0, "/employee?id=2");
 
         employeeListPage.expectEmployeeNameAt(1, "Mick Jagger");
         employeeListPage.expectEmployeeEmailAt(1, "rollingstones@gmail.com");
-
+        employeeListPage.expectEmployeeDetailsUrl(1, "/employee?id=1");
     });
 });
